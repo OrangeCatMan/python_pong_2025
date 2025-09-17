@@ -1,2 +1,2 @@
 # python_pong_2025
-for python class 2025.... the classic game.... PONG.
+from the 2 greatest programmers of all time... for python class 2025.... the classic game.... PONG.
