@@ -9,6 +9,10 @@ turtle.bgcolor("black")
 turtle.bgcolor()
 lPaddle = turtle.Turtle() 
 rPaddle = turtle.Turtle()
+def tele(tutel, x, y):
+    (tutel).penup()
+    (tutel).goto(x,y)
+    (tutel).pendown()
 ball = turtle.Turtle()
 midLine = turtle.Turtle()
 midLine.ht()
@@ -32,8 +36,18 @@ screen.delay()
 rPaddle.fillcolor('white')
 lPaddle.fillcolor('white')
 midLine.penup()
-midLine.goto(0,-370)
+midLine.goto(0,-380)
+tele(rPaddle, -370, 0)
+tele(lPaddle, 370,-35)
 
+
+
+
+def move(tutel, addX, addY):
+    tele(tutel, (tutel).xcor() + 1, (tutel).ycor() + 1)
+
+
+#midline draw'er
 for i in range(20):
     midLine.pendown()
     midLine.forward(10)
@@ -44,20 +58,33 @@ for i in range(20):
 
 def lPaddle_setup():
     lPaddle.begin_fill()
-    for i in range(4):
-        lPaddle.forward(10)
-        lPaddle.left(90)
+    for i in range(2):
+        rPaddle.forward(70)
+        rPaddle.left(90)
+        rPaddle.forward(10)
+        rPaddle.left(90)
     lPaddle.end_fill()
 
 def rPaddle_setup():
     rPaddle.begin_fill()
-    for i in range(4):
+    for i in range(2):
+        rPaddle.forward(70)
+        rPaddle.left(90)
         rPaddle.forward(10)
         rPaddle.left(90)
     rPaddle.end_fill()
-    
 
 def main():
     lPaddle_setup()
     rPaddle_setup()
+    
+for i in range(10):
+    rPaddle.clear()
+    tele(rPaddle, rPaddle.xcor() + 5, rPaddle.ycor() + 5)
+    for i in range(2):
+        rPaddle.forward(70)
+        rPaddle.left(90)
+        rPaddle.forward(10)
+        rPaddle.left(90)
+    print(rPaddle.xcor())
 main()
