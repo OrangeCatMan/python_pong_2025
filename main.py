@@ -1,5 +1,6 @@
 import tkinter as tk
 import turtle
+import keyboard
 #USE .TELEPORT
 
 #setup
@@ -7,18 +8,22 @@ screen = turtle.Screen()
 turtle.setup(800,800)
 turtle.bgcolor("black")
 turtle.bgcolor()
-lPaddle = turtle.Turtle() 
+lPaddle = turtle.Turtle()
 rPaddle = turtle.Turtle()
+
+
 def tele(tutel, x, y):
     (tutel).penup()
     (tutel).goto(x,y)
     (tutel).pendown()
+
+
 ball = turtle.Turtle()
 midLine = turtle.Turtle()
 midLine.ht()
 rPaddle.ht()
 lPaddle.ht()
-ball.ht()
+ball.shape("square")
 midLine.pencolor('white')
 midLine.pencolor()
 lPaddle.pencolor('white')
@@ -37,14 +42,16 @@ rPaddle.fillcolor('white')
 lPaddle.fillcolor('white')
 midLine.penup()
 midLine.goto(0,-380)
-tele(rPaddle, -370, 0)
-tele(lPaddle, 370,-35)
+tele(lPaddle, -370, -35)
+tele(rPaddle, 370,-35)
 
+rpX = 0
+rpY = 0
 
+win = False
 
-
-def move(tutel, addX, addY):
-    tele(tutel, (tutel).xcor() + 1, (tutel).ycor() + 1)
+def move(tutel, addY):
+    tele(tutel, (tutel).xcor(), (tutel).ycor() + addY)
 
 
 #midline draw'er
@@ -56,35 +63,62 @@ for i in range(20):
 
 #left paddle setup
 
-def lPaddle_setup():
+def lPaddleDraw():
+    lPaddle.clear()
     lPaddle.begin_fill()
-    for i in range(2):
-        rPaddle.forward(70)
-        rPaddle.left(90)
-        rPaddle.forward(10)
-        rPaddle.left(90)
+    lPaddle.goto(lPaddle.xcor(), lPaddle.ycor() + 70)
+    lPaddle.goto(lPaddle.xcor() - 10, lPaddle.ycor())
+    lPaddle.goto(lPaddle.xcor(), lPaddle.ycor() - 70)
+    lPaddle.goto(lPaddle.xcor() + 10, lPaddle.ycor())
     lPaddle.end_fill()
 
-def rPaddle_setup():
+
+def rPaddleDraw():
+    rPaddle.clear()
     rPaddle.begin_fill()
-    for i in range(2):
-        rPaddle.forward(70)
-        rPaddle.left(90)
-        rPaddle.forward(10)
-        rPaddle.left(90)
+    rpY = rPaddle.ycor()
+    print(rpX)
+    print(rpY)
+    rPaddle.goto(rPaddle.xcor(), rPaddle.ycor() + 70)
+    rPaddle.goto(rPaddle.xcor() - 10, rPaddle.ycor())
+    rPaddle.goto(rPaddle.xcor(), rPaddle.ycor() - 70)
+    rPaddle.goto(rPaddle.xcor() + 10, rPaddle.ycor())
     rPaddle.end_fill()
 
+def rPaddleUp():
+    move(rPaddle, 3)
+
+def rPaddleDown():
+    move(rPaddle, -3)
+
+def lPaddleUp():
+    move(lPaddle, 3)
+
+def lPaddleDown():
+    move(lPaddle, -3)
+
 def main():
-    lPaddle_setup()
-    rPaddle_setup()
-    
-for i in range(10):
-    rPaddle.clear()
-    tele(rPaddle, rPaddle.xcor() + 5, rPaddle.ycor() + 5)
-    for i in range(2):
-        rPaddle.forward(70)
-        rPaddle.left(90)
-        rPaddle.forward(10)
-        rPaddle.left(90)
-    print(rPaddle.xcor())
+    while win != True:
+        # screen.ontimer()
+        if keyboard.is_pressed('up') and (rpY + 70) < 400:
+            rPaddleUp()
+
+        if keyboard.is_pressed('down'):
+            rPaddleDown()
+
+        if keyboard.is_pressed('w'):
+            lPaddleUp()
+
+        if keyboard.is_pressed('s'):
+            lPaddleDown()
+        rPaddleDraw()
+        lPaddleDraw()
+
+
+
+
+
+#for i in range(10):
+#    rPaddleDraw()
+#    tele(rPaddle, rPaddle.xcor() + 5, rPaddle.ycor() + 5)
 main()
