@@ -45,13 +45,17 @@ midLine.goto(0,-380)
 tele(lPaddle, -370, -35)
 tele(rPaddle, 370,-35)
 
+bVelX = 2
+bVelY = -2
+
+
 rpX = 0
 rpY = 0
 
 win = False
 
-def move(tutel, addY):
-    tele(tutel, (tutel).xcor(), (tutel).ycor() + addY)
+def move(tutel, addX, addY):
+    tele(tutel, (tutel).xcor() + addX, (tutel).ycor() + addY)
 
 
 #midline draw'er
@@ -76,9 +80,6 @@ def lPaddleDraw():
 def rPaddleDraw():
     rPaddle.clear()
     rPaddle.begin_fill()
-    rpY = rPaddle.ycor()
-    print(rpX)
-    print(rpY)
     rPaddle.goto(rPaddle.xcor(), rPaddle.ycor() + 70)
     rPaddle.goto(rPaddle.xcor() - 10, rPaddle.ycor())
     rPaddle.goto(rPaddle.xcor(), rPaddle.ycor() - 70)
@@ -86,39 +87,59 @@ def rPaddleDraw():
     rPaddle.end_fill()
 
 def rPaddleUp():
-    move(rPaddle, 3)
+    move(rPaddle, 0, 5)
 
 def rPaddleDown():
-    move(rPaddle, -3)
+    move(rPaddle, 0, -5)
 
 def lPaddleUp():
-    move(lPaddle, 3)
+    move(lPaddle, 0, 5)
 
 def lPaddleDown():
-    move(lPaddle, -3)
+    move(lPaddle, 0, -5)
+
+def ballUpdate(bVelX, bVelY):
+    if ball.ycor() >= 390 or ball.ycor() <= -390:
+        bVelY = bVelY * -1
+    if ball.xcor() = 
+    move(ball, bVelX, bVelY)
+    return(bVelX, bVelY)
+
 
 def main():
+    bVelX = 2
+    bVelY = -3
     while win != True:
         # screen.ontimer()
-        if keyboard.is_pressed('up') and (rpY + 70) < 400:
-            rPaddleUp()
+        bVelX, bVelY = ballUpdate(bVelX, bVelY)
+
+        if keyboard.is_pressed('up'):
+            if (rPaddle.ycor() + 70) < 398:
+                rPaddleUp()
+            else:
+                move(rPaddle, 0, -3)
 
         if keyboard.is_pressed('down'):
-            rPaddleDown()
+            if (rPaddle.ycor() ) > -398:
+                rPaddleDown()
+            else:
+                move(rPaddle, 0, 3)
 
         if keyboard.is_pressed('w'):
-            lPaddleUp()
+            if (lPaddle.ycor() + 70) < 398:
+                lPaddleUp()
+            else:
+                move(lPaddle, 0, -3)
 
         if keyboard.is_pressed('s'):
-            lPaddleDown()
+            if (lPaddle.ycor() ) > -398:
+                lPaddleDown()
+            else:
+                move(lPaddle, 0, 3)
         rPaddleDraw()
         lPaddleDraw()
 
 
 
 
-
-#for i in range(10):
-#    rPaddleDraw()
-#    tele(rPaddle, rPaddle.xcor() + 5, rPaddle.ycor() + 5)
 main()
