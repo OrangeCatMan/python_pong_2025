@@ -99,16 +99,20 @@ def lPaddleDown():
     move(lPaddle, 0, -5)
 
 def ballUpdate(bVelX, bVelY):
-    if ball.ycor() >= 390 or ball.ycor() <= -390:
-        bVelY = bVelY * -1
-    if ball.xcor() = 
+    if (ball.xcor() >= (rPaddle.xcor() - 10) and (ball.ycor() <= (rPaddle.ycor() + 70) and ball.ycor() >= rPaddle.ycor())) or (ball.xcor() <= (lPaddle.xcor()) and (ball.ycor() <= (lPaddle.ycor() + 70) and ball.ycor() >= lPaddle.ycor())):
+        bVelX *= -1
+    else:
+        if ball.ycor() >= 390 or ball.ycor() <= -390:
+            bVelY *= -1
+        if ball.xcor() >= 390 or ball.xcor() <= -390:
+            bVelX *= -1 
     move(ball, bVelX, bVelY)
     return(bVelX, bVelY)
 
 
 def main():
-    bVelX = 2
-    bVelY = -3
+    bVelX = 1
+    bVelY = -2
     while win != True:
         # screen.ontimer()
         bVelX, bVelY = ballUpdate(bVelX, bVelY)
