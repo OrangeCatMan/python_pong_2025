@@ -38,6 +38,7 @@ lPaddle.left(90)
 midLine.width(10)
 screen.delay(0)
 screen.delay()
+turtle.tracer(0)
 rPaddle.fillcolor('white')
 lPaddle.fillcolor('white')
 midLine.penup()
@@ -87,34 +88,37 @@ def rPaddleDraw():
     rPaddle.end_fill()
 
 def rPaddleUp():
-    move(rPaddle, 0, 5)
+    move(rPaddle, 0, 0.5)
 
 def rPaddleDown():
-    move(rPaddle, 0, -5)
+    move(rPaddle, 0, -0.5)
 
 def lPaddleUp():
-    move(lPaddle, 0, 5)
+    move(lPaddle, 0, 0.5)
 
 def lPaddleDown():
-    move(lPaddle, 0, -5)
+    move(lPaddle, 0, -0.5)
 
 def ballUpdate(bVelX, bVelY):
-    if (ball.xcor() >= (rPaddle.xcor() - 10) and (ball.ycor() <= (rPaddle.ycor() + 70) and ball.ycor() >= rPaddle.ycor())) or (ball.xcor() <= (lPaddle.xcor()) and (ball.ycor() <= (lPaddle.ycor() + 70) and ball.ycor() >= lPaddle.ycor())):
+    if ball.xcor() >= (rPaddle.xcor() - 20) and (ball.ycor() <= (rPaddle.ycor() + 70) and ball.ycor() >= rPaddle.ycor()):
         bVelX *= -1
     else:
         if ball.ycor() >= 390 or ball.ycor() <= -390:
             bVelY *= -1
         if ball.xcor() >= 390 or ball.xcor() <= -390:
-            bVelX *= -1 
+            bVelX *= -1
     move(ball, bVelX, bVelY)
     return(bVelX, bVelY)
 
+def RhandleBPcollision():
+    relIntersectY = (rPaddle.ycor() / 35) - ball.ycor
+    print(relIntersectY)
+
 
 def main():
-    bVelX = 1
-    bVelY = -2
+    bVelX = 0.1
+    bVelY = -0.2
     while win != True:
-        # screen.ontimer()
         bVelX, bVelY = ballUpdate(bVelX, bVelY)
 
         if keyboard.is_pressed('up'):
@@ -142,6 +146,7 @@ def main():
                 move(lPaddle, 0, 3)
         rPaddleDraw()
         lPaddleDraw()
+        turtle.update()
 
 
 
