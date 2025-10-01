@@ -32,6 +32,7 @@ rPaddle.pencolor('white')
 rPaddle.pencolor()
 ball.pencolor('white')
 ball.pencolor()
+ball.turtlesize(0.5)
 midLine.left(90)
 rPaddle.left(90)
 lPaddle.left(90)
@@ -45,6 +46,7 @@ midLine.penup()
 midLine.goto(0,-380)
 tele(lPaddle, -370, -35)
 tele(rPaddle, 370,-35)
+ball.fillcolor("white")
 
 bVelX = 2
 bVelY = -2
@@ -101,6 +103,8 @@ def lPaddleDown():
 
 def ballUpdate(bVelX, bVelY):
     if ball.xcor() >= (rPaddle.xcor() - 20) and (ball.ycor() <= (rPaddle.ycor() + 70) and ball.ycor() >= rPaddle.ycor()):
+        middle = (rPaddle.ycor() + 35)
+        bVelY = (ball.ycor() - middle)/100
         bVelX *= -1
     else:
         if ball.ycor() >= 390 or ball.ycor() <= -390:
@@ -110,40 +114,44 @@ def ballUpdate(bVelX, bVelY):
     move(ball, bVelX, bVelY)
     return(bVelX, bVelY)
 
-def RhandleBPcollision():
-    relIntersectY = (rPaddle.ycor() / 35) - ball.ycor
-    print(relIntersectY)
 
 
 def main():
-    bVelX = 0.1
-    bVelY = -0.2
+    bVelX = 0.25
+    bVelY = 0
+    x = 0
+    y = 0
     while win != True:
+        x += 1
+        if x == 1200:
+            x = 0
+            y += 1
+            print(y)
         bVelX, bVelY = ballUpdate(bVelX, bVelY)
 
         if keyboard.is_pressed('up'):
             if (rPaddle.ycor() + 70) < 398:
                 rPaddleUp()
             else:
-                move(rPaddle, 0, -3)
+                move(rPaddle, 0, -2)
 
         if keyboard.is_pressed('down'):
             if (rPaddle.ycor() ) > -398:
                 rPaddleDown()
             else:
-                move(rPaddle, 0, 3)
+                move(rPaddle, 0, 2)
 
         if keyboard.is_pressed('w'):
             if (lPaddle.ycor() + 70) < 398:
                 lPaddleUp()
             else:
-                move(lPaddle, 0, -3)
+                move(lPaddle, 0, -2)
 
         if keyboard.is_pressed('s'):
             if (lPaddle.ycor() ) > -398:
                 lPaddleDown()
             else:
-                move(lPaddle, 0, 3)
+                move(lPaddle, 0, 2)
         rPaddleDraw()
         lPaddleDraw()
         turtle.update()
