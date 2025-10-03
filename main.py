@@ -1,6 +1,7 @@
 import tkinter as tk
 import turtle
 import keyboard
+import random
 #USE .TELEPORT
 
 #setup
@@ -90,27 +91,32 @@ def rPaddleDraw():
     rPaddle.end_fill()
 
 def rPaddleUp():
-    move(rPaddle, 0, 0.5)
+    move(rPaddle, 0, 0.25)
 
 def rPaddleDown():
-    move(rPaddle, 0, -0.5)
+    move(rPaddle, 0, -0.25)
 
 def lPaddleUp():
-    move(lPaddle, 0, 0.5)
+    move(lPaddle, 0, 0.25)
 
 def lPaddleDown():
-    move(lPaddle, 0, -0.5)
+    move(lPaddle, 0, -0.25)
 
 def ballUpdate(bVelX, bVelY):
-    if ball.xcor() >= (rPaddle.xcor() - 20) and (ball.ycor() <= (rPaddle.ycor() + 70) and ball.ycor() >= rPaddle.ycor()):
+    if ball.xcor() >= (rPaddle.xcor() - 10) and (ball.ycor() <= (rPaddle.ycor() + 70) and ball.ycor() >= rPaddle.ycor()):
         middle = (rPaddle.ycor() + 35)
         bVelY = (ball.ycor() - middle)/100
         bVelX *= -1
-    else:
-        if ball.ycor() >= 390 or ball.ycor() <= -390:
-            bVelY *= -1
-        if ball.xcor() >= 390 or ball.xcor() <= -390:
-            bVelX *= -1
+    elif ball.xcor() <= (lPaddle.xcor()) and (ball.ycor() <= (lPaddle.ycor() + 70) and ball.ycor() >= lPaddle.ycor()):
+        middle = (lPaddle.ycor() + 35)
+        bVelY = (ball.ycor() - middle)/100
+        bVelX *= -1
+    elif ball.xcor() < (lPaddle.xcor()) or ball.xcor() > (rPaddle.xcor() - 10):
+        tele(ball, 0, 0)
+        bVelX = random.uniform(0.05, 0.25)
+        bVelY = random.uniform(0, 0.25)
+    elif ball.ycor() >= 390 or ball.ycor() <= -390:
+        bVelY *= -1
     move(ball, bVelX, bVelY)
     return(bVelX, bVelY)
 
